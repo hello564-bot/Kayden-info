@@ -1,0 +1,1342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KAYDEN | Developer</title>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="https://img.icons8.com/color/96/000000/code.png">
+    <style>
+        /* === ROOT & RESET === */
+        :root {
+            --bg-dark: #0a0a0f;
+            --bg-card: #0f0f17;
+            --primary: #7c3aed;
+            --primary-glow: rgba(124, 58, 237, 0.3);
+            --secondary: #06b6d4;
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: #1e293b;
+            --success: #10b981;
+            --gradient: linear-gradient(135deg, #7c3aed, #06b6d4);
+            --font-main: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-dark);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        ::selection {
+            background: var(--primary-glow);
+            color: white;
+        }
+
+        /* === LAYOUT & CONTAINER === */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 100px 0;
+        }
+
+        /* === HEADER & NAV === */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: rgba(10, 10, 15, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            padding: 20px 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--text);
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--gradient);
+            border-radius: 2px;
+        }
+
+        /* === HERO SECTION === */
+        .hero {
+            padding-top: 160px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            background: radial-gradient(circle, var(--primary-glow) 0%, transparent 70%);
+            opacity: 0.3;
+            z-index: -1;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: 3.8rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, #f8fafc, #94a3b8);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-text h1 .gradient-text {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: block;
+        }
+
+        .hero-text .tagline {
+            font-size: 1.3rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            max-width: 500px;
+        }
+
+        .hero-code {
+            background-color: var(--bg-card);
+            border-radius: 12px;
+            padding: 2rem;
+            border: 1px solid var(--border);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+        }
+
+        .code-window-controls {
+            display: flex;
+            gap: 8px;
+        }
+
+        .control {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .control.close { background-color: #ff5f56; }
+        .control.minimize { background-color: #ffbd2e; }
+        .control.maximize { background-color: #27ca3f; }
+
+        .code-block {
+            font-family: var(--font-mono);
+            font-size: 0.95rem;
+            line-height: 1.8;
+            overflow-x: auto;
+        }
+
+        .code-line {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .code-keyword { color: #ff79c6; }
+        .code-function { color: #50fa7b; }
+        .code-var { color: #bd93f9; }
+        .code-string { color: #f1fa8c; }
+        .code-comment { color: #6272a4; font-style: italic; }
+        .code-number { color: #bd93f9; }
+
+        /* === MY FAVORITES SECTION === */
+        .favorites-section {
+            background-color: rgba(15, 15, 23, 0.7);
+            padding: 100px 0;
+        }
+
+        .favorites-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .favorites-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .favorite-card {
+            background-color: var(--bg-card);
+            border-radius: 12px;
+            padding: 2rem;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .favorite-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(124, 58, 237, 0.1);
+        }
+
+        .favorite-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--gradient);
+        }
+
+        .favorite-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .favorite-title {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .favorite-content {
+            color: var(--text-muted);
+        }
+
+        /* ADVANCED AUDIO PLAYER STYLES */
+        .audio-player-container {
+            margin-top: 1.5rem;
+            text-align: center;
+        }
+
+        /* Hide default audio controls */
+        #favorite-song-audio {
+            display: none;
+        }
+
+        .advanced-play-btn {
+            width: 70px;
+            height: 70px;
+            background: var(--gradient);
+            border-radius: 50%;
+            border: none;
+            color: white;
+            font-size: 1.8rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px var(--primary-glow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .advanced-play-btn::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary), #6d28d9);
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .advanced-play-btn:hover::before {
+            opacity: 1;
+        }
+
+        .advanced-play-btn:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 15px 35px rgba(124, 58, 237, 0.4);
+        }
+
+        .advanced-play-btn i {
+            position: relative;
+            z-index: 1;
+        }
+
+        .song-info {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        /* Progress bar (optional, hidden by default) */
+        .progress-container {
+            width: 100%;
+            height: 4px;
+            background: var(--border);
+            border-radius: 2px;
+            margin-top: 1rem;
+            overflow: hidden;
+            display: none; /* Hide by default */
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: var(--gradient);
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+
+        /* Volume control (optional) */
+        .volume-control {
+            display: none;
+            align-items: center;
+            gap: 10px;
+            margin-top: 1rem;
+            justify-content: center;
+        }
+
+        .volume-slider {
+            width: 100px;
+            height: 4px;
+            -webkit-appearance: none;
+            background: var(--border);
+            border-radius: 2px;
+            outline: none;
+        }
+
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 15px;
+            height: 15px;
+            background: var(--primary);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        /* === SKILLS SECTION === */
+        .skills-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .skill-item {
+            background-color: var(--bg-card);
+            border-radius: 10px;
+            padding: 1.5rem 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            border: 1px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .skill-item:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .skill-icon {
+            font-size: 2.2rem;
+            margin-bottom: 0.8rem;
+            color: var(--primary);
+        }
+
+        .skill-name {
+            font-weight: 600;
+        }
+
+        /* SKILL BARS */
+        .skill-bars {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .skill-category h3 {
+            margin-bottom: 1.5rem;
+            color: var(--text);
+            font-size: 1.3rem;
+        }
+
+        .skill-bar {
+            margin-bottom: 1.5rem;
+        }
+
+        .skill-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        .skill-percent {
+            color: var(--success);
+            font-weight: 600;
+        }
+
+        .skill-progress {
+            height: 8px;
+            background-color: var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .skill-fill {
+            height: 100%;
+            background: var(--gradient);
+            border-radius: 4px;
+            width: 0;
+            transition: width 1.5s ease-in-out;
+        }
+
+        /* === PROJECTS SECTION === */
+        .projects-section {
+            background-color: rgba(15, 15, 23, 0.5);
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background-color: var(--bg-card);
+            border-radius: 12px;
+            padding: 2rem;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(124, 58, 237, 0.1);
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--gradient);
+        }
+
+        .project-title {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .project-desc {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 1.5rem;
+        }
+
+        .tag {
+            background-color: rgba(124, 58, 237, 0.1);
+            color: var(--primary);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* === STATS & INTERESTS === */
+        .stats-section {
+            padding: 80px 0;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .stat-card {
+            background-color: var(--bg-card);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+
+        .stat-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .stat-title {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* INTERESTS */
+        .interests {
+            margin-top: 4rem;
+        }
+
+        .interests h3 {
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .interest-items {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .interest {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            width: 120px;
+        }
+
+        .interest-icon {
+            width: 70px;
+            height: 70px;
+            background-color: var(--bg-card);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+
+        .interest:hover .interest-icon {
+            background-color: var(--primary);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        /* === CONTACT SECTION === */
+        .contact-section {
+            padding: 100px 0;
+            text-align: center;
+            background-color: rgba(15, 15, 23, 0.5);
+        }
+
+        .contact-section h2 {
+            font-size: 2.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-text {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 3rem;
+        }
+
+        .contact-btn {
+            display: inline-block;
+            background: var(--gradient);
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px var(--primary-glow);
+        }
+
+        .contact-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px var(--primary-glow);
+        }
+
+        /* === FOOTER === */
+        footer {
+            background-color: var(--bg-card);
+            padding: 3rem 0;
+            text-align: center;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-text {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-icon {
+            color: var(--text-muted);
+            font-size: 1.3rem;
+            transition: all 0.3s;
+        }
+
+        .social-icon:hover {
+            color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        /* === ANIMATIONS & RESPONSIVE === */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+
+        @media (max-width: 768px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+                text-align: center;
+            }
+
+            .hero-text h1 {
+                font-size: 2.8rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .skills-container {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .favorites-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+                background: none;
+                border: none;
+                color: var(--text);
+                font-size: 1.5rem;
+                cursor: pointer;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container nav-container">
+            <div class="logo">KAYDEN</div>
+            <ul class="nav-links">
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#favorites">My Favorites</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#stats">Stats</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-bg"></div>
+        <div class="container hero-content">
+            <div class="hero-text fade-in">
+                <h1>Building Digital <span class="gradient-text">Experiences.</span></h1>
+                <p class="tagline">Architecting digital ecosystems while solving complex challenges. Creator of innovative tools & cutting-edge solutions.</p>
+                <p><i class="fas fa-map-marker-alt" style="color: var(--secondary);"></i> Noida, India</p>
+            </div>
+            <div class="hero-code fade-in delay-1">
+                <div class="code-header">
+                    <span>kayden.jsx</span>
+                    <div class="code-window-controls">
+                        <div class="control close"></div>
+                        <div class="control minimize"></div>
+                        <div class="control maximize"></div>
+                    </div>
+                </div>
+                <div class="code-block">
+                    <code>
+                        <span class="code-line"><span class="code-keyword">import</span> React, { useState } <span class="code-keyword">from</span> <span class="code-string">'react'</span>;</span>
+                        <span class="code-line"></span>
+                        <span class="code-line"><span class="code-keyword">const</span> <span class="code-function">Developer</span> = () => {</span>
+                        <span class="code-line">  <span class="code-keyword">const</span> [skills] = <span class="code-function">useState</span>([</span>
+                        <span class="code-line">    <span class="code-string">'HTML'</span>, <span class="code-string">'CSS'</span>, <span class="code-string">'JavaScript'</span>,</span>
+                        <span class="code-line">    <span class="code-string">'React'</span>, <span class="code-string">'Python'</span>, <span class="code-string">'Node.js'</span></span>
+                        <span class="code-line">  ]);</span>
+                        <span class="code-line"></span>
+                        <span class="code-line">  <span class="code-keyword">const</span> projects = [</span>
+                        <span class="code-line">    { <span class="code-var">name</span>: <span class="code-string">'Project Quantum'</span>, <span class="code-var">status</span>: <span class="code-string">'Active'</span> },</span>
+                        <span class="code-line">    { <span class="code-var">name</span>: <span class="code-string">'OSINT Toolkit'</span>, <span class="code-var">type</span>: <span class="code-string">'Advanced'</span> },</span>
+                        <span class="code-line">    { <span class="code-var">name</span>: <span class="code-string">'Sync Engine'</span>, <span class="code-var">engine</span>: <span class="code-string">'Real-time'</span> }</span>
+                        <span class="code-line">  ];</span>
+                        <span class="code-line"></span>
+                        <span class="code-line">  <span class="code-keyword">return</span> (</span>
+                        <span class="code-line">    &lt;div className=<span class="code-string">"developer-profile"</span>&gt;</span>
+                        <span class="code-line">      &lt;h1&gt;Hello, I'm <span class="code-var">KAYDEN</span>&lt;/h1&gt;</span>
+                        <span class="code-line">      &lt;p&gt;Developer & Problem Solver&lt;/p&gt;</span>
+                        <span class="code-line">    &lt;/div&gt;</span>
+                        <span class="code-line">  );</span>
+                        <span class="code-line">};</span>
+                        <span class="code-line"></span>
+                        <span class="code-line"><span class="code-keyword">export default</span> Developer;</span>
+                    </code>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MY FAVORITES SECTION -->
+    <section id="favorites" class="favorites-section">
+        <div class="container">
+            <h2 class="fade-in">MY Favorites</h2>
+            <div class="favorites-grid">
+                <!-- Favorite Song -->
+                <div class="favorite-card fade-in">
+                    <div class="favorite-icon">
+                        <i class="fas fa-music"></i>
+                    </div>
+                    <h3 class="favorite-title">Favorite Song</h3>
+                    <div class="favorite-content">
+                        <p><strong>Song:</strong> TU HAI KAHA</p>
+                        <p><strong>Artist:</strong> AUR</p>
+                        <p><strong>Duration:</strong> 4:23</p>
+                        
+                        <!-- Hidden audio element -->
+                        <audio id="favorite-song-audio">
+                            <source src="https://files.catbox.moe/3pk20x.mp3" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio>
+                        
+                        <!-- Advanced Play/Pause Button -->
+                        <div class="audio-player-container">
+                            <button class="advanced-play-btn" id="play-pause-btn">
+                                <i class="fas fa-play"></i>
+                            </button>
+                            <div class="song-info">
+                                <span id="current-time">0:00</span> / <span id="duration">0:00</span>
+                            </div>
+                            <!-- Optional progress bar (hidden by default) -->
+                            <div class="progress-container" id="progress-container">
+                                <div class="progress-bar" id="progress-bar"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Favorite Anime -->
+                <div class="favorite-card fade-in delay-1">
+                    <div class="favorite-icon">
+                        <i class="fas fa-tv"></i>
+                    </div>
+                    <h3 class="favorite-title">Favorite Anime</h3>
+                    <div class="favorite-content">
+                        <p><strong>Anime Name:</strong> [Your Favorite Anime Name]</p>
+                        <p><strong>Genre:</strong> [Anime Genre]</p>
+                        <p><strong>Why I Love It:</strong> [Brief description of why you like this anime]</p>
+                    </div>
+                </div>
+
+                <!-- Education -->
+                <div class="favorite-card fade-in delay-2">
+                    <div class="favorite-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3 class="favorite-title">Education</h3>
+                    <div class="favorite-content">
+                        <p><strong>Degree:</strong> [Your Degree/Qualification]</p>
+                        <p><strong>Institution:</strong> [Your School/College/University]</p>
+                        <p><strong>Field:</strong> [Your Field of Study]</p>
+                        <p><strong>Year:</strong> [Graduation Year or Current Year]</p>
+                    </div>
+                </div>
+
+                <!-- Location -->
+                <div class="favorite-card fade-in">
+                    <div class="favorite-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h3 class="favorite-title">Location</h3>
+                    <div class="favorite-content">
+                        <p><strong>City:</strong> Noida</p>
+                        <p><strong>Country:</strong> India</p>
+                        <p><strong>About Noida:</strong> A planned city in Uttar Pradesh, known for its IT industry and modern infrastructure.</p>
+                    </div>
+                </div>
+
+                <!-- My Photo -->
+                <div class="favorite-card fade-in delay-1 photo-container">
+                    <div class="favorite-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3 class="favorite-title">My Photo</h3>
+                    <div class="favorite-content">
+                        <img src="https://i.ibb.co/9mJML5L0/71-lp7-NYU5-L-AC-UF894-1000-QL80.jpg" alt="KAYDEN's Photo" class="profile-photo">
+                        <p>This is me, KAYDEN - Developer & Problem Solver</p>
+                    </div>
+                </div>
+
+                <!-- Additional Favorite -->
+                <div class="favorite-card fade-in delay-2">
+                    <div class="favorite-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3 class="favorite-title">Other Favorites</h3>
+                    <div class="favorite-content">
+                        <p><strong>Favorite Programming Language:</strong> JavaScript/Python</p>
+                        <p><strong>Favorite IDE:</strong> VS Code</p>
+                        <p><strong>Favorite Framework:</strong> React</p>
+                        <p><strong>Favorite Hobby:</strong> Coding & Chess</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills-section">
+        <div class="container">
+            <h2 class="fade-in">Skill Arsenal</h2>
+            <div class="skills-container fade-in delay-1">
+                <div class="skill-item">
+                    <i class="fab fa-react skill-icon"></i>
+                    <span class="skill-name">React</span>
+                </div>
+                <div class="skill-item">
+                    <i class="fab fa-js skill-icon"></i>
+                    <span class="skill-name">JavaScript</span>
+                </div>
+                <div class="skill-item">
+                    <i class="fab fa-node-js skill-icon"></i>
+                    <span class="skill-name">Node.js</span>
+                </div>
+                <div class="skill-item">
+                    <i class="fab fa-python skill-icon"></i>
+                    <span class="skill-name">Python</span>
+                </div>
+                <div class="skill-item">
+                    <i class="fas fa-database skill-icon"></i>
+                    <span class="skill-name">MongoDB</span>
+                </div>
+                <div class="skill-item">
+                    <i class="fab fa-html5 skill-icon"></i>
+                    <span class="skill-name">HTML5</span>
+                </div>
+                <div class="skill-item">
+                    <i class="fab fa-css3-alt skill-icon"></i>
+                    <span class="skill-name">CSS3</span>
+                </div>
+                <div class="skill-item">
+                    <i class="fas fa-bolt skill-icon"></i>
+                    <span class="skill-name">Socket.io</span>
+                </div>
+            </div>
+
+            <div class="skill-bars fade-in delay-2">
+                <div class="skill-category">
+                    <h3>Frontend</h3>
+                    <div class="skill-bar">
+                        <div class="skill-info">
+                            <span>React, Next.js, Tailwind</span>
+                            <span class="skill-percent">92%</span>
+                        </div>
+                        <div class="skill-progress">
+                            <div class="skill-fill" data-width="92"></div>
+                        </div>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-info">
+                            <span>UI/UX Design</span>
+                            <span class="skill-percent">85%</span>
+                        </div>
+                        <div class="skill-progress">
+                            <div class="skill-fill" data-width="85"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Backend</h3>
+                    <div class="skill-bar">
+                        <div class="skill-info">
+                            <span>Node.js, Express, Python</span>
+                            <span class="skill-percent">75%</span>
+                        </div>
+                        <div class="skill-progress">
+                            <div class="skill-fill" data-width="75"></div>
+                        </div>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-info">
+                            <span>API Development</span>
+                            <span class="skill-percent">80%</span>
+                        </div>
+                        <div class="skill-progress">
+                            <div class="skill-fill" data-width="80"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Database</h3>
+                    <div class="skill-bar">
+                        <div class="skill-info">
+                            <span>MongoDB, Firebase</span>
+                            <span class="skill-percent">60%</span>
+                        </div>
+                        <div class="skill-progress">
+                            <div class="skill-fill" data-width="60"></div>
+                        </div>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-info">
+                            <span>PostgreSQL</span>
+                            <span class="skill-percent">50%</span>
+                        </div>
+                        <div class="skill-progress">
+                            <div class="skill-fill" data-width="50"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects-section">
+        <div class="container">
+            <h2 class="section-title fade-in">Selected Works</h2>
+            <div class="projects-grid">
+                <div class="project-card fade-in">
+                    <h3 class="project-title">Project Quantum</h3>
+                    <p class="project-desc">An AI-powered analytics platform that processes large datasets in real-time, providing actionable insights through an intuitive dashboard.</p>
+                    <div class="project-tags">
+                        <span class="tag">React</span>
+                        <span class="tag">Node.js</span>
+                        <span class="tag">TensorFlow.js</span>
+                        <span class="tag">WebSockets</span>
+                    </div>
+                    <a href="#" class="contact-btn" style="padding: 0.8rem 1.5rem; font-size: 0.9rem;">View Live <i class="fas fa-external-link-alt"></i></a>
+                </div>
+                <div class="project-card fade-in delay-1">
+                    <h3 class="project-title">OSINT Toolkit</h3>
+                    <p class="project-desc">A comprehensive open-source intelligence toolkit for cybersecurity professionals, featuring automated data aggregation and visualization.</p>
+                    <div class="project-tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">Flask</span>
+                        <span class="tag">Selenium</span>
+                        <span class="tag">D3.js</span>
+                    </div>
+                    <a href="#" class="contact-btn" style="padding: 0.8rem 1.5rem; font-size: 0.9rem;">GitHub Repo <i class="fab fa-github"></i></a>
+                </div>
+                <div class="project-card fade-in delay-2">
+                    <h3 class="project-title">Sync Engine</h3>
+                    <p class="project-desc">Real-time synchronization engine for collaborative applications, enabling seamless multi-user editing with conflict resolution algorithms.</p>
+                    <div class="project-tags">
+                        <span class="tag">Socket.io</span>
+                        <span class="tag">Redis</span>
+                        <span class="tag">React</span>
+                        <span class="tag">CRDTs</span>
+                    </div>
+                    <a href="#" class="contact-btn" style="padding: 0.8rem 1.5rem; font-size: 0.9rem;">View Demo <i class="fas fa-play-circle"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats & Interests -->
+    <section id="stats" class="stats-section">
+        <div class="container">
+            <div class="stats-container fade-in">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-code-branch"></i>
+                    </div>
+                    <div class="stat-title">Projects Completed</div>
+                    <div class="stat-value">24+</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-title">Coding Hours</div>
+                    <div class="stat-value">2,500+</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-title">Collaborations</div>
+                    <div class="stat-value">15+</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="stat-title">GitHub Stars</div>
+                    <div class="stat-value">180+</div>
+                </div>
+            </div>
+
+            <div class="interests fade-in delay-1">
+                <h3>Beyond Code</h3>
+                <div class="interest-items">
+                    <div class="interest">
+                        <div class="interest-icon">
+                            <i class="fas fa-chess-board"></i>
+                        </div>
+                        <span>Chess</span>
+                    </div>
+                    <div class="interest">
+                        <div class="interest-icon">
+                            <i class="fas fa-cube"></i>
+                        </div>
+                        <span>3D Modeling</span>
+                    </div>
+                    <div class="interest">
+                        <div class="interest-icon">
+                            <i class="fas fa-music"></i>
+                        </div>
+                        <span>Musicfy</span>
+                    </div>
+                    <div class="interest">
+                        <div class="interest-icon">
+                            <i class="fas fa-book-open"></i>
+                        </div>
+                        <span>Reading</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <h2 class="fade-in">Let's Build Something</h2>
+            <p class="contact-text fade-in delay-1">Have a project in mind or just want to discuss technology and innovation? My inbox is always open.</p>
+            <a href="mailto:kayden.dev@example.com" class="contact-btn fade-in delay-2">
+                <i class="fas fa-paper-plane"></i> Send Message
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="fade-in">
+        <div class="container">
+            <p class="footer-text">Designed and built by KAYDEN with passion</p>
+            <div class="social-links">
+                <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-discord"></i></a>
+            </div>
+            <p class="copyright">© 2026 KAYDEN. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Audio Player Logic
+        const audio = document.getElementById('favorite-song-audio');
+        const playPauseBtn = document.getElementById('play-pause-btn');
+        const playIcon = playPauseBtn.querySelector('i');
+        const currentTimeEl = document.getElementById('current-time');
+        const durationEl = document.getElementById('duration');
+        const progressBar = document.getElementById('progress-bar');
+        const progressContainer = document.getElementById('progress-container');
+
+        // Format time from seconds to MM:SS
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+        }
+
+        // Update time display
+        function updateTimeDisplay() {
+            currentTimeEl.textContent = formatTime(audio.currentTime);
+            durationEl.textContent = formatTime(audio.duration || 0);
+            
+            // Update progress bar
+            if (audio.duration) {
+                const progressPercent = (audio.currentTime / audio.duration) * 100;
+                progressBar.style.width = `${progressPercent}%`;
+            }
+        }
+
+        // Toggle play/pause
+        function togglePlayPause() {
+            if (audio.paused) {
+                audio.play();
+                playIcon.classList.remove('fa-play');
+                playIcon.classList.add('fa-pause');
+                playPauseBtn.style.transform = 'scale(1.1)';
+            } else {
+                audio.pause();
+                playIcon.classList.remove('fa-pause');
+                playIcon.classList.add('fa-play');
+                playPauseBtn.style.transform = 'scale(1)';
+            }
+        }
+
+        // Event Listeners
+        playPauseBtn.addEventListener('click', togglePlayPause);
+
+        audio.addEventListener('timeupdate', updateTimeDisplay);
+        audio.addEventListener('loadedmetadata', updateTimeDisplay);
+        audio.addEventListener('ended', () => {
+            playIcon.classList.remove('fa-pause');
+            playIcon.classList.add('fa-play');
+            playPauseBtn.style.transform = 'scale(1)';
+        });
+
+        // Optional: Click on progress bar to seek
+        progressContainer.addEventListener('click', (e) => {
+            const rect = progressContainer.getBoundingClientRect();
+            const pos = (e.clientX - rect.left) / rect.width;
+            audio.currentTime = pos * audio.duration;
+        });
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+            navLinks.style.flexDirection = 'column';
+            navLinks.style.position = 'absolute';
+            navLinks.style.top = '70px';
+            navLinks.style.right = '20px';
+            navLinks.style.backgroundColor = 'var(--bg-card)';
+            navLinks.style.padding = '20px';
+            navLinks.style.borderRadius = '10px';
+            navLinks.style.border = '1px solid var(--border)';
+            navLinks.style.boxShadow = '0 10px 30px rgba(0,0,0,0.3)';
+            navLinks.style.gap = '15px';
+        });
+
+        // Animate skill bars on scroll
+        const skillBars = document.querySelectorAll('.skill-fill');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const width = entry.target.getAttribute('data-width');
+                    entry.target.style.width = width + '%';
+                }
+            });
+        }, { threshold: 0.5 });
+
+        skillBars.forEach(bar => observer.observe(bar));
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.padding = '15px 0';
+                header.style.boxShadow = '0 5px 20px rgba(0,0,0,0.1)';
+            } else {
+                header.style.padding = '20px 0';
+                header.style.boxShadow = 'none';
+            }
+        });
+
+        // Smooth scroll for nav links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    if(window.innerWidth <= 768) {
+                        navLinks.style.display = 'none';
+                    }
+                }
+            });
+        });
+
+        // Add active class to nav links based on scroll
+        const sections = document.querySelectorAll('section');
+        const navItems = document.querySelectorAll('.nav-links a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if(scrollY >= (sectionTop - 150)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navItems.forEach(item => {
+                item.classList.remove('active');
+                if(item.getAttribute('href') === `#${current}`) {
+                    item.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
